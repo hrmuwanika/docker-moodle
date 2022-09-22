@@ -1,4 +1,4 @@
-# github.com/tiredofit/docker-moodle
+# docker moodle
 
 [![GitHub release](https://img.shields.io/github/v/tag/tiredofit/docker-moodle?style=flat-square)](https://github.com/tiredofit/docker-moodle/releases/latest)
 [![Build Status](https://img.shields.io/github/workflow/status/tiredofit/docker-moodle/build?style=flat-square)](https://github.com/tiredofit/docker-moodle/actions?query=workflow%3Abuild)
