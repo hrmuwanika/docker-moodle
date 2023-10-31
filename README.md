@@ -1,7 +1,7 @@
 # docker moodle
 
 [![GitHub release](https://img.shields.io/github/v/tag/tiredofit/docker-moodle?style=flat-square)](https://github.com/tiredofit/docker-moodle/releases/latest)
-[![Build Status](https://img.shields.io/github/workflow/status/tiredofit/docker-moodle/build?style=flat-square)](https://github.com/tiredofit/docker-moodle/actions?query=workflow%3Abuild)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/tiredofit/docker-moodle/main.yml?branch=main&style=flat-square)](https://github.com/tiredofit/docker-moodle/actions)
 [![Docker Stars](https://img.shields.io/docker/stars/tiredofit/moodle.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/tiredofit/moodle/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/tiredofit/moodle.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/tiredofit/moodle/)
 [![Become a sponsor](https://img.shields.io/badge/sponsor-tiredofit-181717.svg?logo=github&style=flat-square)](https://github.com/sponsors/tiredofit)
@@ -60,10 +60,16 @@ This will build a Docker Image for [Moodle](https://www.moodle.org/), a learning
 Clone this repository and build the image with `docker build <arguments> (imagename) .`
 
 ### Prebuilt Images
-Builds of the image are available on [Docker Hub](https://hub.docker.com/r/tiredofit/moodle) and is the recommended method of installation.
+Builds of the image are available on [Docker Hub](https://hub.docker.com/r/tiredofit/moodle)
 
 ```bash
-docker pull tiredofit/moodle:(imagetag)
+docker pull docker.io/tiredofit/moodle:(imagetag)
+```
+
+Builds of the image are also available on the [Github Container Registry](https://github.com/tiredofit/docker-moodle/pkgs/container/docker-moodle)
+
+```
+docker pull ghcr.io/tiredofit/docker-moodle:(imagetag)
 ```
 
 The following image tags are available along with their tagged release based on what's written in the [Changelog](CHANGELOG.md):
@@ -97,7 +103,7 @@ The following directories are used for configuration and can be mapped for persi
 
 #### Base Images used
 
-This image relies on an [Alpine Linux](https://hub.docker.com/r/tiredofit/alpine) base image that relies on an [init system](https://github.com/just-containers/s6-overlay) for added capabilities. Outgoing SMTP capabilities are handlded via `msmtp`. Individual container performance monitoring is performed by [zabbix-agent](https://zabbix.org). Additional tools include: `bash`,`curl`,`less`,`logrotate`,`nano`,`vim`.
+This image relies on an [Alpine Linux](https://hub.docker.com/r/tiredofit/alpine) base image that relies on an [init system](https://github.com/just-containers/s6-overlay) for added capabilities. Outgoing SMTP capabilities are handlded via `msmtp`. Individual container performance monitoring is performed by [zabbix-agent](https://zabbix.org). Additional tools include: `bash`,`curl`,`less`,`logrotate`,`nano`.
 
 Be sure to view the following repositories to understand all the customizable options:
 
@@ -108,29 +114,29 @@ Be sure to view the following repositories to understand all the customizable op
 | [PHP-FPM](https://github.com/tiredofit/docker-nginx-php-fpm/) | PHP Interpreter                        |
 
 #### Required Always
-| Parameter     | Description                                                         | Default      |
-| ------------- | ------------------------------------------------------------------- | ------------ |
-| `CRON_PERIOD` | Time in minutes to be required to perform inernal maintenance tasks | `15`         |
-| `DATA_PATH`   | Moodle Data and Course related files                                | `/www/data/` |
-| `DB_HOST`     | MariaDB external container hostname (e.g. moodle-db)                |              |
-| `DB_NAME`     | MariaDB database name i.e. (e.g. moodle)                            |              |
-| `DB_USER`     | MariaDB username for database (e.g. moodle)                         |              |
-| `DB_PASS`     | MariaDB password for database (e.g. userpassword)                   |              |
-| `DB_PORT`     | MariaDB Port                                                        | `3306`       |
+| Parameter     | Description                                                         | Default      | `_FILE` |
+| ------------- | ------------------------------------------------------------------- | ------------ | ------- |
+| `CRON_PERIOD` | Time in minutes to be required to perform inernal maintenance tasks | `15`         |         |
+| `DATA_PATH`   | Moodle Data and Course related files                                | `/www/data/` |         |
+| `DB_HOST`     | MariaDB external container hostname (e.g. moodle-db)                |              | x       |
+| `DB_NAME`     | MariaDB database name i.e. (e.g. moodle)                            |              | x       |
+| `DB_USER`     | MariaDB username for database (e.g. moodle)                         |              | x       |
+| `DB_PASS`     | MariaDB password for database (e.g. userpassword)                   |              | x       |
+| `DB_PORT`     | MariaDB Port                                                        | `3306`       | x       |
 
 #### First Insall Only
-| Parameter              | Description                                                         | Default              |
-| ---------------------- | ------------------------------------------------------------------- | -------------------- |
-| `MOODLE_VERSION`       | Used to choose what Moodle Installation to install or Upgrade to    | `Look in Dockerfile` |
-| `ADMIN_EMAIL`          | Email address for the Administrator                                 |                      |
-| `ADMIN_USER`           | Username for the Administrator                                      |                      |
-| `ADMIN_PASS`           | Password for the Administrator                                      |                      |
-| `ENABLE_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE` | `TRUE`               |
-| `LANGUAGE`             | Site Lanaguage                                                      | `en`                 |
-| `SITE_PORT`            | What Port does moodle deliver assets to                             | `80`                 |
-| `SITE_NAME`            | The title of the Website                                            | ``                   |
-| `SITE_SHORT_NAME`      | The short name of site e.g. `example`                               | ``                   |
-| `SITE_URL`             | The Full site URL of the installation e.g. `moodle.example.com`     |                      |
+| Parameter              | Description                                                         | Default              | `_FILE` |
+| ---------------------- | ------------------------------------------------------------------- | -------------------- | ------- |
+| `MOODLE_VERSION`       | Used to choose what Moodle Installation to install or Upgrade to    | `Look in Dockerfile` |         |
+| `ADMIN_EMAIL`          | Email address for the Administrator                                 |                      | x       |
+| `ADMIN_USER`           | Username for the Administrator                                      |                      | x       |
+| `ADMIN_PASS`           | Password for the Administrator                                      |                      | x       |
+| `ENABLE_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE` | `TRUE`               |         |
+| `LANGUAGE`             | Site Lanaguage                                                      | `en`                 |         |
+| `SITE_PORT`            | What Port does moodle deliver assets to                             | `80`                 |         |
+| `SITE_NAME`            | The title of the Website                                            | ``                   |         |
+| `SITE_SHORT_NAME`      | The short name of site e.g. `example`                               | ``                   |         |
+| `SITE_URL`             | The Full site URL of the installation e.g. `moodle.example.com`     |                      |         |
 
 ### Networking
 
@@ -156,7 +162,7 @@ docker exec -it (whatever your container name is) bash
 These images were built to serve a specific need in a production environment and gradually have had more functionality added based on requests from the community.
 ### Usage
 - The [Discussions board](../../discussions) is a great place for working with the community on tips and tricks of using this image.
-- Consider [sponsoring me](https://github.com/sponsors/tiredofit) personalized support.
+- Consider [sponsoring me](https://github.com/sponsors/tiredofit) for personalized support
 ### Bugfixes
 - Please, submit a [Bug Report](issues/new) if something isn't working as expected. I'll do my best to issue a fix in short order.
 

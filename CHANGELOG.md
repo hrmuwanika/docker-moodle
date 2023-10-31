@@ -1,3 +1,39 @@
+## 4.2.0 2023-04-26 <dave at tiredofit dot ca>
+
+   ### Added
+      - Introduce support for '_FILE' environment variables
+
+
+## 4.1.0 2022-11-30 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Rework Dockerfile to solve installation issues and add optimizations
+
+
+## 4.0.13 2022-10-05 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Migrate legacy nginx configuration
+
+
+## 4.0.12 2022-09-23 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Introduce escaping environment variable for $
+
+
+## 4.0.11 2022-09-23 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Fix changing permissiosn for data path if already created
+
+
+## 4.0.10 2022-09-23 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Fix install for 4 character stable bases
+
+
 ## 4.0.9 2022-09-22 <dave at tiredofit dot ca>
 
    ### Changed

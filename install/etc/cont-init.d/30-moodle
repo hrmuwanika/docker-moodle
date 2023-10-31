@@ -13,6 +13,16 @@ if [ ! -d "${DATA_PATH}" ] ; then
     chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${DATA_PATH}"
 fi
 
+transform_file_var \
+                    ADMIN_EMAIL \
+                    ADMIN_PASS \
+                    ADMIN_USER \
+                    DB_HOST \
+                    DB_NAME \
+                    DB_PASS \
+                    DB_PORT \
+                    DB_USER
+
 if [ ! -f "${NGINX_WEBROOT}"/index.php ] ; then
     print_info "Detecting New Install. Downloading Moodle.."
     sanity_var ADMIN_USER "Administrative User"
@@ -23,7 +33,7 @@ if [ ! -f "${NGINX_WEBROOT}"/index.php ] ; then
     sanity_var SITE_SHORT_NAME "Site Short Name"
     mkdir -p "${NGINX_WEBROOT}"
 
-    MOODLE_VERSION_TMP=${MOODLE_VERSION:0:3}
+    MOODLE_VERSION_TMP=${MOODLE_VERSION:0:4}
     curl -sSL https://download.moodle.org/download.php/direct/stable${MOODLE_VERSION_TMP//./}/moodle-${MOODLE_VERSION}.tgz | tar xfz - --strip 1 -C "${NGINX_WEBROOT}"
     chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
     cd "${NGINX_WEBROOT}"/admin/cli
@@ -48,7 +58,7 @@ if [ ! -f "${NGINX_WEBROOT}"/index.php ] ; then
 
     if var_true "${ENABLE_REVERSE_PROXY}" ; then
         print_notice "Adding SSL Reverse Proxy Information"
-        sudo -u "${NGINX_USER}" sed -i "/wwwroot/a $CFG->sslproxy=1;" "${NGINX_WEBROOT}"/config.php
+        sudo -u "${NGINX_USER}" sed -i "/wwwroot/a \$CFG->sslproxy=1;" "${NGINX_WEBROOT}"/config.php
     fi
     chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
     chmod -R 0755 "${NGINX_WEBROOT}"
@@ -73,6 +83,7 @@ ${MOODLE_VERSION} upgraded on $(date)" "${DATA_PATH}"/.moodle-version
     fi
 fi
 
+chown "${NGINX_USER}":"${NGINX_GROUP}" "${DATA_PATH}"
 chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
 chmod -R 0755 "${NGINX_WEBROOT}"
 
