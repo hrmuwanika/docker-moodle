@@ -1,3 +1,22 @@
+## 4.3.2 2024-07-09 <fermion2020@github>
+
+   ### Changed
+      - Update nginx configuration for better security
+
+
+## 4.3.1 2024-04-23 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Rerelease of 4.3.0
+
+
+## 4.3.0 2024-04-23 <dave at tiredofit dot ca>
+
+   ### Added
+      - Install Moodle 4.4 release on first install
+      - PHP 8.2 base
+
+
 ## 4.2.0 2023-04-26 <dave at tiredofit dot ca>
 
    ### Added
